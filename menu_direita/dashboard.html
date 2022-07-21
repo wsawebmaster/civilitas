@@ -1,0 +1,1104 @@
+<?php
+include('acoes/conexao.php');
+
+session_start();
+
+if (isset($_SESSION["usuario"]) && is_array($_SESSION["usuario"])) {
+    $adm  = $_SESSION["usuario"][1];
+    $nome = $_SESSION["usuario"][0];
+} else {
+    echo "<script>window.location = 'index.php'</script>";
+}
+
+// Conexão via Mysqli utf8 - Início  AQUI É PARA FUNCIONAR A BUSCA DO DESIGNADOR, ((SE CONSEGUIR ALTERAR O CÓDIGO PARA USAR SOMENTE PDO))
+$host = "localhost";
+$db   = "suportes_suportespi";
+$user = "suportes_wagner";
+$pass = "Andrade7@spi";
+
+$mysqli = new mysqli($host, $user, $pass, $db);
+mysqli_set_charset($mysqli, 'utf8');
+if ($mysqli->connect_errno) {
+    die("Falha na conexão com o banco de dados");
+}
+// Conexão via Mysqli utf8 - Fim
+// Função dia
+//changeTimeZone("America/Sao_Paulo"); para converter para o padrão do servidor, você passaria apenas um fuso horário
+date_default_timezone_set('America/Sao_Paulo');
+
+function dia_atual()
+{
+    $hoje = getdate();
+    switch ($hoje["wday"]) {
+        case 0:
+            return "Domingo";
+            break;
+        case 1:
+            return "Segunda-feira";
+            break;
+        case 2:
+            return "Terça-feira";
+            break;
+        case 3:
+            return "Quarta-feira";
+            break;
+        case 4:
+            return "Quinta-feira";
+            break;
+        case 5:
+            return "Sexta-feira";
+            break;
+        case 6:
+            return "Sábado";
+            break;
+    }
+}
+// Chama funçao dia
+$dia  = dia_atual();
+$hoje = date('d/m/Y');
+$hoje1 = date('Y-m-d');
+
+
+
+//Início consulta e contagem de ítens no Banco de Dados via PDO
+$total = 0;
+$n = 1;
+//Conta todos registros $sql = "SELECT COUNT(*) AS andamento FROM acesso_colaborador";
+//Conta Rits lancados hoje
+$sql_lancado = "SELECT COUNT(monitor) AS monitor FROM rit WHERE monitor='$nome' AND data_rit like '%{$hoje1}%'";
+$sql_lancado = $conexao->query($sql_lancado);
+$sql_lancado = $sql_lancado->fetch();
+$total_lancado = $sql_lancado['monitor'];
+
+//Conta RIT's Lançados OK total
+$sql_rit = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo!=''";
+$sql_rit = $conexao->query($sql_rit);
+$sql_rit = $sql_rit->fetch();
+$total_rit = $sql_rit['resumo'];
+
+//Conta RIT's OK 
+//$sql_rit_ok = "SELECT COUNT(1) FROM RIT 
+//              WHERE (rede_externa = '' AND rede_interna = '' AND sobre_tecnico = '' AND orientacoes = '')";
+//$sql_rit_ok = $conexao->query($sql_rit_ok);
+//$total_rit_ok = $sql_rit_ok->num_rows;
+
+$sql_rit_ok = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='OK'";
+$sql_rit_ok = $conexao->query($sql_rit_ok);
+$sql_rit_ok = $sql_rit_ok->fetch();
+$total_rit_ok = $sql_rit_ok['resumo'];
+
+//Conta RIT's impactando os Processos 
+$sql_rit_processos = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='Processos'";
+$sql_rit_processos = $conexao->query($sql_rit_processos);
+$sql_rit_processos = $sql_rit_processos->fetch();
+$total_rit_processos = $sql_rit_processos['resumo'];
+
+//Conta RIT's impactando a Experiência de uso do cliente 
+$sql_rit_experiencia = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='Experiência'";
+$sql_rit_experiencia = $conexao->query($sql_rit_experiencia);
+$sql_rit_experiencia = $sql_rit_experiencia->fetch();
+$total_rit_experiencia = $sql_rit_experiencia['resumo'];
+
+//Situação Pendente 
+$sql_rit_exp_pend = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='Experiência' AND situacao='Pendente'";
+$sql_rit_exp_pend = $conexao->query($sql_rit_exp_pend);
+$sql_rit_exp_pend = $sql_rit_exp_pend->fetch();
+$total_rit_exp_pend = $sql_rit_exp_pend['resumo'];
+
+//Situação Em tratativa 
+$sql_rit_exp_trat = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='Experiência' AND situacao='Em tratativa'";
+$sql_rit_exp_trat = $conexao->query($sql_rit_exp_trat);
+$sql_rit_exp_trat = $sql_rit_exp_trat->fetch();
+$total_rit_exp_trat = $sql_rit_exp_trat['resumo'];
+
+//Situação Regularizado 
+$sql_rit_exp_reg = "SELECT COUNT(resumo) AS resumo FROM rit WHERE resumo='Experiência' AND situacao='Regularizado'";
+$sql_rit_exp_reg = $conexao->query($sql_rit_exp_reg);
+$sql_rit_exp_reg = $sql_rit_exp_reg->fetch();
+$total_rit_exp_reg = $sql_rit_exp_reg['resumo'];
+
+//Conta Agrupar por cidade 
+$query_rit_agrupar = "SELECT cidade, COUNT(*) FROM rit GROUP BY cidade";
+$result_rit_agrupar = $conexao->prepare($query_rit_agrupar);
+$result_rit_agrupar->execute();
+$row_rit_agrupar = $result_rit_agrupar->fetch(PDO::FETCH_ASSOC);
+
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - <?php echo $nome; ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-ico">
+    <link rel="stylesheet" href="style/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        #menu h1 {
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <?php
+    if (isset($_SESSION['msg'])) {
+        echo $_SESSION['msg'];
+        unset($_SESSION['msg']);
+    }
+    ?>
+
+    <div id="menu">
+        <ul>
+            <li><a href="#">
+                    <h1>Hoje é <?php echo $dia; ?> dia <?php echo $hoje; ?></h1>
+                </a></li>
+            <li>
+                <img id="img_perfil" src="style/img/user-circle-solid-branco.svg" height="23" alt="" loading="lazy"/>
+
+                <ul id="display_menu" style="display: none;">
+                    <li><a>Meu Perfil</a></li>
+                    <li>Alterar Senha</li>
+                </ul>
+
+                <span class="rit_dia">
+                    <a onclick="abrirModal_Rit_Lancados()">
+                        <?php echo $total_lancado; ?>
+                    </a>
+                </span> &nbsp&nbsp
+                <?php echo $nome; ?>
+                <a href="acoes/logout.php"><img src="style/img/sair-branco.svg" title="Sair"></a>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+    <div class="container_adm">
+        <?php if ($adm) : ?>
+            <h1>Painel Administrativo de RIT</h1>
+
+            <!-- Cards Início -->
+
+            <div class="cards-list">
+
+                <div class="card 1" id="card1">
+                    <div class="card_image"></div>
+                    <a onclick="abrirModal_Rit_OK()">
+
+                        <div class="card_title title-black">
+                            <p>OK</p>
+                        </div>
+                        <p>
+                            <h2><?php echo $total_rit_ok; ?></h2><br />
+                        </p>
+                    </a>
+                </div>
+
+                <div class="card 2" id="card2">
+                    <div class="card_image"></div>
+                    <a onclick="abrirModal_Rit_Processos()">
+                        <div class="card_title title-black">
+                            <p>Processos</p>
+                        </div>
+                        <p>
+                            <h2><?php echo $total_rit_processos; ?></h2><br />
+                        </p>
+                    </a>
+                </div>
+
+                <div class="card 3" id="card3">
+                    <div class="card_image"></div>
+                    <a onclick="abrirModal_Rit_Experiência()">
+                        <div class="card_title black">
+                            <p>Experiência</p>
+                        </div>
+                        <p>
+                            <h4><?php echo $total_rit_experiencia; ?></h4><br />
+                            <h5><?php echo $total_rit_exp_pend ?> Pendente(s)</h5>
+                            <h5><?php echo $total_rit_exp_trat ?> Em tratativa</h5>
+                            <h5><?php echo $total_rit_exp_reg ?> Regularizado(s)</h5>
+                        </p>
+                    </a>
+                </div>
+
+                <div class="card 4" id="card4">
+                    <div class="card_image"></div>
+                    <div class="card_title black">
+                        <p>Total Geral</p>
+                    </div>
+                    <p>
+                    <h2><?php echo $total_rit; ?></h2> <br /></p>
+                </div>
+            </div>
+
+            <!-- Cards Fim -->
+
+
+
+
+
+
+
+            <!-- Início Exibir Rit OK -->
+            <div id="Modal_Rit_OK" class="modal">
+                <div class="rit">
+                    <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>
+                    <h1>Rit's OK</h1><br>
+                    <div id="rit_executados" class="rit_executados">
+                        <?php
+                        //$query_rit  = "SELECT * FROM rit ORDER BY data_rit DESC";
+
+                        $query_rit  = "SELECT * FROM rit WHERE resumo ='OK' ORDER BY data_rit DESC";
+                        $result_rit = $conexao->prepare($query_rit);
+                        $result_rit->execute();
+                        echo "
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Monitor</th>
+                            <th>Cidade</th>
+                            <th>Área</th>
+                            <th>Técnico</th>
+                            <th>Data Atividade</th>
+                            <th>Serviço</th>
+                            <th>Designador</th>
+                            <th>Contador</th>
+                            <th>Rede Externa</th>
+                            <th>Rede interna</th>
+                            <th>Sobre</th>
+                            <th>Orientações</th>
+                            <th>Observações</th>
+                        </tr>
+                        </thead>
+                    ";
+
+                        while ($row_rit = $result_rit->fetch(PDO::FETCH_ASSOC)) {
+                            echo "
+                    <tbody>
+                        <tr data-index='0'>
+                            <td class='description'>{$row_rit['monitor']}</td>
+                            <td class='description'>{$row_rit['cidade']}</td>
+                            <td class='description'>{$row_rit['area']}</td>
+                            <td class='income'>{$row_rit['tecnico']}</td>
+                            <td class='description'>{$row_rit['data_atividade']}</td>
+                            <td class='description'>{$row_rit['servico']}</td>
+                            <td class='description'>{$row_rit['designador']}</td>
+                            <td class='description'>{$row_rit['contador_defeito']}</td>
+                            <td class='expense'>{$row_rit['rede_externa']}</td>
+                            <td class='expense'>{$row_rit['rede_interna']}</td>
+                            <td class='expense'>{$row_rit['sobre_tecnico']}</td>
+                            <td class='expense'>{$row_rit['orientacoes']}</td>
+                            <td class='description'>{$row_rit['observacoes']}</td>
+
+                        </tr>
+                    ";
+                        }
+                        echo "</tbody></table>";
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim Exibir Rit OK -->
+
+            <!-- Início Exibir Rit Processos -->
+            <div id="Modal_Rit_Processos" class="modal">
+                <div class="rit">
+                    <h1>Rit's afetando Processos</h1><br>
+                    <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>
+                    <div id="rit_executados" class="rit_executados">
+                        <?php
+                        //$query_rit  = "SELECT * FROM rit ORDER BY data_rit DESC";
+
+                        $query_rit  = "SELECT * FROM rit WHERE resumo ='Processos' ORDER BY data_rit DESC";
+                        $result_rit = $conexao->prepare($query_rit);
+                        $result_rit->execute();
+                        echo "
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Monitor</th>                        
+                            <th>Evidências</th>
+                            <th>Corrigir</th>
+                            <th>Cidade</th>
+                            <th>Área</th>
+                            <th>Técnico</th>
+                            <th>Situação</th>
+                            <th>Data Atividade</th>
+                            <th>Serviço</th>
+                            <th>Designador</th>
+                            <th>Contador</th>
+                            <th>Rede Externa</th>
+                            <th>Rede interna</th>
+                            <th>Sobre</th>
+                            <th>Orientações</th>
+                            <th>Observações</th>
+                        </tr>
+                        </thead>
+                    ";
+
+                        while ($row_rit = $result_rit->fetch(PDO::FETCH_ASSOC)) {
+                            echo "
+                    <tbody>
+                        <tr data-index='0'>
+                            <td class='description'>{$row_rit['monitor']}</td>                        
+                            <td><a href='mostrar_imagens_rit.php?id={$row_rit['id']}'><img src='style/img/eye-preto.svg' alt='Visualizar'></a></td>
+                            <td><a href='editar_rit.php?id=" . $row_rit['id'] . "class='button new'><img src='style/img/editar-texto.png' alt='Alterar Andamento'></a></td>
+                            <td class='description'>{$row_rit['cidade']}</td>
+                            <td class='description'>{$row_rit['area']}</td>
+                            <td class='income'>{$row_rit['tecnico']}</td>
+                            <td class='income'>{$row_rit['situacao']}</td>
+                            <td class='description'>{$row_rit['data_atividade']}</td>
+                            <td class='description'>{$row_rit['servico']}</td>
+                            <td class='description'>{$row_rit['designador']}</td>
+                            <td class='description'>{$row_rit['contador_defeito']}</td>
+                            <td class='expense'>{$row_rit['rede_externa']}</td>
+                            <td class='expense'>{$row_rit['rede_interna']}</td>
+                            <td class='expense'>{$row_rit['sobre_tecnico']}</td>
+                            <td class='expense'>{$row_rit['orientacoes']}</td>
+                            <td class='description'>{$row_rit['observacoes']}</td>
+
+                        </tr>
+                    ";
+                        }
+                        echo "</tbody></table>";
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim Exibir Rit Processos -->
+
+            <!-- Início Exibir Rit Experiência -->
+            <div id="Modal_Rit_Experiência" class="modal">
+                <div class="rit">
+                    <h1>Rit's afetando Experiência</h1><br>
+                    <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>
+                    <div id="rit_executados" class="rit_executados">
+                        <?php
+                        //$query_rit  = "SELECT * FROM rit ORDER BY data_rit DESC";
+
+                        $query_rit  = "SELECT * FROM rit WHERE resumo ='Experiência' ORDER BY data_rit DESC";
+                        $result_rit = $conexao->prepare($query_rit);
+                        $result_rit->execute();
+                        echo "
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Monitor</th>                        
+                            <th>Evidências</th>
+                            <th>Corrigir</th>
+                            <th>Cidade</th>
+                            <th>Área</th>
+                            <th>Técnico</th>
+                            <th>Situação</th>
+                            <th>Data Atividade</th>
+                            <th>Serviço</th>
+                            <th>Designador</th>
+                            <th>Contador</th>
+                            <th>Rede Externa</th>
+                            <th>Rede interna</th>
+                            <th>Sobre</th>
+                            <th>Orientações</th>
+                            <th>Observações</th>
+                        </tr>
+                        </thead>
+                    ";
+
+                        while ($row_rit = $result_rit->fetch(PDO::FETCH_ASSOC)) {
+                            echo "
+                    <tbody>
+                        <tr data-index='0'>
+                            <td class='description'>{$row_rit['monitor']}</td>                        
+                            <td><a href='mostrar_imagens_rit.php?id={$row_rit['id']}'><img src='style/img/eye-preto.svg' alt='Visualizar'></a></td>
+                            <td><a href='editar_rit.php?id=" . $row_rit['id'] . "class='button new'><img src='style/img/editar-texto.png' alt='Alterar Andamento'></a></td>
+                            <td class='description'>{$row_rit['cidade']}</td>
+                            <td class='description'>{$row_rit['area']}</td>
+                            <td class='income'>{$row_rit['tecnico']}</td>
+                            <td class='income'>{$row_rit['situacao']}</td>
+                            <td class='description'>{$row_rit['data_atividade']}</td>
+                            <td class='description'>{$row_rit['servico']}</td>
+                            <td class='description'>{$row_rit['designador']}</td>
+                            <td class='description'>{$row_rit['contador_defeito']}</td>
+                            <td class='expense'>{$row_rit['rede_externa']}</td>
+                            <td class='expense'>{$row_rit['rede_interna']}</td>
+                            <td class='expense'>{$row_rit['sobre_tecnico']}</td>
+                            <td class='expense'>{$row_rit['orientacoes']}</td>
+                            <td class='description'>{$row_rit['observacoes']}</td>
+
+                        </tr>
+                    ";
+                        }
+                        echo "</tbody></table>";
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim Exibir Rit Experiência -->
+
+        <?php endif; ?>
+    </div>
+
+
+
+    <!-- Início Exibir Rit Lançados -->
+    <div id="Modal_Rit_Lancados" class="modal">
+        <div class="rit">
+            <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>
+
+            <h1>Meus Rit's Lançados</h1><br>
+            <div id="rit_executados" class="rit_executados">
+                <?php
+                //$query_rit  = "SELECT * FROM rit ORDER BY data_rit DESC";
+
+                $query_rit  = "SELECT * FROM rit WHERE data_rit like '%{$hoje1}%' AND monitor = '$nome'";
+                $result_rit = $conexao->prepare($query_rit);
+                $result_rit->execute();
+                echo "
+
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Monitor</th>                        
+                            <th>Evidências</th>
+                            <th>Cidade</th>
+                            <th>Técnico</th>
+                            <th>Data Atividade</th>
+                            <th>Serviço</th>
+                            <th>Designador</th>
+                            <th>Contador</th>
+                            <th>Rede Externa</th>
+                            <th>Rede interna</th>
+                            <th>Sobre</th>
+                            <th>Orientações</th>
+                            <th>Observações</th>
+                        </tr>
+                        </thead>
+                    ";
+
+                while ($row_rit = $result_rit->fetch(PDO::FETCH_ASSOC)) {
+                    echo "
+                    <tbody>
+                        <tr data-index='0'>
+                            <td class='description'>{$row_rit['monitor']}</td>                        
+                            <td><a href='mostrar_imagens_rit.php?id={$row_rit['id']}'><img src='style/img/eye-preto.svg' alt='Visualizar'></a></td>
+                            <td class='description'>{$row_rit['cidade']}</td>
+                            <td class='income'>{$row_rit['tecnico']}</td>
+                            <td class='description'>{$row_rit['data_atividade']}</td>
+                            <td class='description'>{$row_rit['servico']}</td>
+                            <td class='description'>{$row_rit['designador']}</td>
+                            <td class='description'>{$row_rit['contador_defeito']}</td>
+                            <td class='expense'>{$row_rit['rede_externa']}</td>
+                            <td class='expense'>{$row_rit['rede_interna']}</td>
+                            <td class='expense'>{$row_rit['sobre_tecnico']}</td>
+                            <td class='expense'>{$row_rit['orientacoes']}</td>
+                            <td class='description'>{$row_rit['observacoes']}</td>
+
+                        </tr>
+                    ";
+                }
+                echo "</tbody></table>";
+                ?>
+            </div>
+        </div>
+    </div>
+    <!-- Fim Exibir Rit Lançados -->
+
+
+
+
+
+
+    <!-- Início Consultar Designador -->
+    <div id="Modal_Consultar_Designador" class="modal">
+        <div class="rit">
+            <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>
+            <form method="POST" action="dashboard.php">
+                <div class="inner-form">
+                    <div class="input-field first-wrap">
+                        <div class="svg-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                            </svg>
+                        </div>
+                        <input type="text" name="busca" size="30" placeholder="Designador aqui" value="<?php if (isset($_GET['busca'])) echo $_GET['busca']; ?>" required />
+                    </div>
+                    <div class="input-field second-wrap">
+                        <button class="btn-search" type="submit">Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Fim Consultar Designador -->
+
+
+
+
+
+
+    <!-- Cadastro RIT - Início -->
+    <div class="container_resp">
+
+
+        <h1 style="color:rgb(4, 155, 4);text-transform: uppercase;font-weight: 800;">Relatório de Inspeção Técnica (RIT)</h1>
+
+        <!-- Formulário de várias etapas -->
+        <form id="msform" method="POST" action="cadastrarRit.php" enctype="multipart/form-data">
+
+            <!-- Barra de Progesso -->
+            <ul id="progressbar">
+                <li class="active">Dados da Atividade</li>
+                <li>Rede Externa e Interna</li>
+                <li>Orientações e Sobre</li>
+            </ul>
+
+            <!-- Campos -->
+            <fieldset>
+                <h2 class="fs-title">Dados da Atividade</h2>
+
+                <!-- Início Consultar Designador -->
+
+                <!-- <form id="formulario" autocomplete="off">
+                      <div class="buscaDesignador-container">
+                        <input type="text" id="buscaDesignador" nome="buscaDesignador" placeholder="Buscar Designador" maxlength="25">
+                        <a href="#" onclick="buscarDesignador()"><img class="buscaDesignador-icon" src="../img/search-solid.svg"></a>
+                    </div>
+                     </form>  -->
+                <!-- Fim Consultar Designador -->
+
+
+                <?php
+                if (!isset($_POST['busca'])) {
+                ?>
+
+                    <a class="fa-blink" onclick="abrirModalConsultarDesignador()">Clique para Selecionar</a><br /><br />
+
+                    <?php
+                } else {
+                    $pesquisa  = $mysqli->real_escape_string($_POST['busca']);
+                    $sql_code  = "SELECT *
+                                        FROM base_teste_rit 
+                                        WHERE Designador LIKE '%$pesquisa%' 
+                                        OR Atividade LIKE '%$pesquisa%' ORDER BY data_agendada ASC LIMIT 1";
+                    $sql_query = $mysqli->query($sql_code) or die("ERRO ao consultar! " . $mysqli->error);
+
+                    if ($sql_query->num_rows == 0) {
+                    ?>
+
+                        <a class="fa-blink" onclick="abrirModalConsultarDesignador()">Nova Pesquisa</a> <br /><br />
+
+                        Nenhum resultado encontrado...
+
+                        <?php
+                    } else {
+                        while ($dados = $sql_query->fetch_assoc()) {
+                        ?>
+
+
+                            <a class="fa-blink" onclick="abrirModalConsultarDesignador()">Nova Pesquisa</a>
+
+
+                            <!-- Início - Formulário RIT -->
+
+                            <div class="rit">
+
+                                <div class="container_chk" style="display: block;">
+                                    <label>Monitor: </label>
+                                    <input type="text" name="monitor" id="monitor" maxlength="50" value="<?php echo $nome ?>" readonly /> <!-- Monitor -->
+                                    <label>Cidade: </label>
+                                    <input type="text" name="cidade" id="cidade" maxlength="50" value="<?php echo $dados['cidade']; ?>" readonly /> <!-- Cidade -->
+                                    <label>Área: </label>
+                                    <input type="text" name="area" id="area" maxlength="50" value="<?php echo $dados['area']; ?>" readonly /> <!-- Area -->
+                                    Data atual: </label>
+                                    <input type="text" name="data_rit" id="data_rit" value="<?php echo $hoje; ?>" readonly /> <!-- <?php echo $hoje; ?> --><br />
+
+                                    <label>Técnico: </label>
+                                    <input type="text" name="tecnico" id="tecnico" maxlength="50" value="<?php echo $dados['recurso']; ?>" readonly /> <!-- Recurso -->
+                                    <label>Data da Atividade: </label>
+                                    <input type="text" name="data_atividade" id="data_atividade" maxlength="150" value="<?php echo $dados['data_agendada']; ?>" readonly /> <!-- Data Agendada para Execucao -->
+                                    <label>Serviço: </label>
+                                    <input type="text" name="servico" id="servico" maxlength="50" value="<?php echo $dados['tipo_atividade']; ?>" readonly /> <!-- Tipo de Atividade -->
+                                    <label>Atividade: </label>
+                                    <input type="text" name="atividade" id="atividade" maxlength="50" value="<?php echo $dados['atividade']; ?>" readonly /> <!-- Atividade -->
+                                    <label>Designador: </label>
+                                    <input type="text" name="designador" id="designador" maxlength="50" value="<?php echo $dados['designador']; ?>" readonly /> <!-- Designador -->
+                                    <label>PON: </label>
+                                    <input type="text" name="pon" id="pon" maxlength="50" value="<?php echo $dados['pon']; ?>" readonly /> <!-- PON -->
+                                    <label>Tecnologia: </label>
+                                    <input type="text" name="tecnologia" id="tecnologia" maxlength="50" value="<?php echo $dados['tecnologia_acesso']; ?>" readonly /> <!-- Tecnologia do Acesso -->
+                                    <label>Contador de Defeito: </label>
+                                    <input type="text" name="contador_defeito" id="contador_defeito" maxlength="50" value="<?php echo $dados['contador_defeito']; ?>" readonly /> <!-- Contador Defeito Repetido -->
+                                </div>
+
+                                <br />
+
+                            </div>
+
+
+                            <!-- Fim - Formulário RIT -->
+
+
+                    <?php
+                        }
+                    }
+                    ?>
+                <?php }
+                ?>
+
+
+
+
+
+
+
+
+
+
+
+                <input type="button" name="next" class="next action-button" value="Avançar" />
+            </fieldset>
+
+
+
+
+            <fieldset>
+                <h2 class="fs-title">Rede Externa</h2>
+
+                <textarea rows="5" type="text" name="rede_externa" id="selectedtext" placeholder="Selecionar Irregularidades"></textarea>
+
+
+                <!-- Início Irregularidades Rede Externa -->
+                <div id="Modal_Rede_Externa">
+                    <div class="container_chk">
+                        <!--         <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>  -->
+                        <input type="checkbox" class="chkbx" id="falha1ex" value="Facilidades">
+                        <label for="falha1ex">Facilidades</label><br />
+                        <input type="checkbox" class="chkbx" id="falha2ex" value="Organização CTOP">
+                        <label for="falha2ex">Organização CTOP</label><br />
+                        <input type="checkbox" class="chkbx" id="falha3ex" value="Numeral de identificação">
+                        <label for="falha3ex">Numeral de identificação</label><br />
+                        <input type="checkbox" class="chkbx" id="falha4ex" value="Reaproveitou Fibra">
+                        <label for="falha4ex">Reaproveitou Fibra</label><br />
+                        <input type="checkbox" class="chkbx" id="falha5ex" value="Trajeto da Fibra">
+                        <label for="falha5ex">Trajeto da Fibra</label><br />
+                        <input type="checkbox" class="chkbx" id="falha6ex" value="Risco de Rompimento">
+                        <label for="falha6ex">Risco de Rompimento</label><br />
+                        <input type="checkbox" class="chkbx" id="falha7ex" value="Equipagem de Poste">
+                        <label for="falha7ex">Equipagem de Poste</label><br />
+                        <input type="checkbox" class="chkbx" id="falha8ex" value="Alça Plástica">
+                        <label for="falha8ex">Alça Plástica</label><br />
+                        <input type="checkbox" class="chkbx" id="falha9ex" value="Reserva Técnica">
+                        <label for="falha9ex">Reserva Técnica</label><br />
+                        <input type="checkbox" class="chkbx" id="falha10ex" value="Pingadeira">
+                        <label for="falha10ex">Pingadeira</label><br />
+                        <input type="checkbox" class="chkbx" id="falha11ex" value="Suporte DM">
+                        <label for="falha11ex">Suporte DM</label><br /><br />
+                    </div>
+                </div>
+                <!-- Fim Irregularidades Rede Externa -->
+
+
+                <h2 class="fs-title">Rede Interna</h2>
+
+                <textarea rows="5" type="text" name="rede_interna" id="selectedtextin" placeholder="Selecionar Irregularidades"></textarea>
+
+
+                <!-- Início Irregularidades Rede Interna -->
+                <div id="Modal_Rede_Interna">
+                    <div class="container_chk">
+                        <!--         <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>  -->
+
+                        <input type="checkbox" class="chkbx_in" id="falha1in" value="Acabamento Interno">
+                        <label for="falha1in">Acabamento Interno</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha2in" value="Autofusão no conector/fibra">
+                        <label for="falha2in">Autofusão conector/fibra</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha3in" value="Fita Hellerman">
+                        <label for="falha3in">Fita Hellerman</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha4in" value="Nível sinal do HGU">
+                        <label for="falha4in">Nível sinal do HGU</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha5in" value="Configurações do HGU">
+                        <label for="falha5in">Configurações do HGU</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha6in" value="Firmware">
+                        <label for="falha6in">Firmware</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha7in" value="Posicionamento do HGU">
+                        <label for="falha7in">Posicionamento do HGU</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha8in" value="Voip">
+                        <label for="falha8in">Voip</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha9in" value="Cabo coaxial">
+                        <label for="falha9in">Cabo coaxial</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha10in" value="Torque">
+                        <label for="falha10in">Torque</label><br />
+                        <input type="checkbox" class="chkbx_in" id="falha11in" value="Fibra com energia">
+                        <label for="falha11in">Fibra com energia</label><br />
+                    </div>
+                </div>
+                <!-- Fim Irregularidades Rede Interna -->
+
+
+                <input type="button" name="previous" class="previous action-button" value="Voltar" />
+                <input type="button" name="next" class="next action-button" value="Avançar" />
+            </fieldset>
+
+
+
+
+            <fieldset>
+                <h2 class="fs-title">Sobre o Técnico</h2>
+
+                <textarea rows="5" type="text" name="sobre_tecnico" id="selectedtextso" placeholder="Selecionar Irregularidades"></textarea>
+
+                <!-- Início Irregularidades Sobre o Técnico -->
+                <div id="Modal_Sobre_Tecnico">
+                    <div class="container_chk">
+                        <!--         <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>  -->
+
+                        <input type="checkbox" class="chkbx_so" id="falha1so" value="Crachá">
+                        <label for="falha1so">Crachá</label><br />
+                        <input type="checkbox" class="chkbx_so" id="falha2so" value="Pro pé">
+                        <label for="falha2so">Pro pé</label><br />
+                        <input type="checkbox" class="chkbx_so" id="falha3so" value="Máscara">
+                        <label for="falha3so">Máscara</label><br />
+                        <input type="checkbox" class="chkbx_so" id="falha4so" value="KIT ÓPTICO">
+                        <label for="falha4so">Kit Óptico</label><br />
+                        <input type="checkbox" class="chkbx_so" id="falha5so" value="KIT CONFECÇÃO RG06">
+                        <label for="falha5so">Kit RG06</label><br />
+                        <input type="checkbox" class="chkbx_so" id="falha6so" value="NOTEBOOK">
+                        <label for="falha6so">Notebook</label><br />
+
+                    </div>
+                </div>
+                <!-- Fim Irregularidades Sobre o Técnico -->
+
+
+                <br />
+                <h2 class="fs-title">Orientações</h2>
+
+                <textarea rows="5" type="text" name="orientacoes" id="selectedtextor" placeholder="Selecionar Irregularidades"></textarea>
+
+                <!-- Início Irregularidades Sobre o Técnico -->
+                <div id="Modal_Orientacoes">
+                    <div class="container_chk">
+                        <!--         <a href="#fechar_modal" title="Fechar_modal" class="fechar_modal">X</a>  -->
+
+                        <input type="checkbox" class="chkbx_or" id="falha1or" value="Dúvidas do cliente">
+                        <label for="falha1or">Dúvidas do cliente</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha2or" value="Teste de velocidade no notebook">
+                        <label for="falha2or">Teste velocidade notebook</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha3or" value="Teste de velocidade no equipamento do cliente">
+                        <label for="falha3or">Teste veloc equip cliente</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha4or" value="Redes 2.4GHz e 5GHz">
+                        <label for="falha4or">Redes 2.4GHz e 5GHz</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha5or" value="Mapa de Calor">
+                        <label for="falha5or">Mapa de Calor</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha6or" value="Cuidados com a fibra">
+                        <label for="falha6or">Cuidados com a fibra</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha7or" value="Aplicativo Vivo Smart Wifi">
+                        <label for="falha7or">Aplicativo Vivo Smart Wifi</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha8or" value="Aplicativo meu Vivo Fixo">
+                        <label for="falha8or">Aplicativo meu Vivo Fixo</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha9or" value="Data da Portabilidade">
+                        <label for="falha9or">Data da Portabilidade</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha10or" value="Plugar cabo da linha após Portabilidade">
+                        <label for="falha10or">Plugar cabo da linha</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha11or" value="Testes via Wifi">
+                        <label for="falha11or">Testes via Wifi</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha12or" value="Controle Remoto">
+                        <label for="falha12or">Controle Remoto</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha13or" value="Reprise">
+                        <label for="falha13or">Reprise</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha14or" value="Locação de Filmes">
+                        <label for="falha14or">Locação de Filmes</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha15or" value="Senhas">
+                        <label for="falha15or">Senhas</label><br />
+                        <input type="checkbox" class="chkbx_or" id="falha16or" value="Aplicativo Vivoplay">
+                        <label for="falha16or">Aplicativo Vivoplay</label><br />
+                    </div>
+                </div>
+                <!-- Fim Irregularidades Sobre o Técnico -->
+
+                <br />
+
+
+                <textarea rows="5" type="text" name="observacoes" id="observacoes" placeholder="Observações importantes" maxlength="300"></textarea>
+                <br />
+
+                <!-- Início Resumo -->
+                <h2 class="fs-title">Resumo</h2>
+                <div class="custom-radios">
+                    <div>
+                        <input type="radio" id="color-1" name="resumo" value="OK" checked>
+                        <label for="color-1">
+                            <span>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                            </span>
+                            OK
+                        </label>
+                    </div>
+                    <div>
+                        <input type="radio" id="color-2" name="resumo" value="Processos">
+                        <label for="color-2">
+                            <span>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                            </span>
+                            Processos
+                        </label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="color-3" name="resumo" value="Experiência">
+                        <label for="color-3">
+                            <span>
+                                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                            </span>
+                            Experiência
+                        </label>
+                    </div>
+
+                </div>
+                <!-- Fim Resumo -->
+
+                <br />
+                <div id="dfoto1">
+                    <input type="file" name="image[]" id="image" multiple="" class="d-none" onchange="image_select()">
+                    <button class="image_container" type="button" onclick="document.getElementById('image').click()"> &nbspAdcionar Evidências&nbsp </button>
+
+
+                    <div id="container_fotos">
+                        <!-- image preview -->
+                    </div>
+
+                    <!-- <input type="button" name="teste" onclick="alert('teste');"> -->
+
+                </div>
+
+
+                <input type="button" name="previous" class="previous action-button" value="Voltar" />
+                <input name="SendCadRit" type="submit" class="action-button" value="Cadastrar" />
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Cadastro RIT - Fim -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Início Modal Resposta Banco de Dados -->
+    <!-- RETIRA A INFORMAÇÃO DA TELA APÓS UM TEMPO -->
+    <script>
+        $(document).ready(function() { // A DIFERENÇA ESTA AQUI, EXECUTA QUANDO O DOCUMENTO ESTA "PRONTO"
+            $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+        });
+
+        $("#success-btn").click(function() {
+            $("div.success").fadeIn(300).delay(1500).fadeOut(400);
+        });
+
+        $("#failure-btn").click(function() {
+            $("div.failure").fadeIn(300).delay(1500).fadeOut(400);
+        });
+
+        $("#warning-btn").click(function() {
+            $("div.warning").fadeIn(300).delay(1500).fadeOut(400);
+        });
+    </script>
+    <!-- Fim Modal Resposta Banco de Dados -->
+
+
+    <script>
+        var sel_tipo = document.getElementById("Modal_Rit_Lancados");
+        var sel_tipo = document.getElementById("Modal_Rit_OK");
+        var sel_tipo = document.getElementById("Modal_Rit_Processos");
+        var sel_tipo = document.getElementById("Modal_Rit_Experiência");
+
+        function abrirModalConsultarDesignador() {
+            window.open("#Modal_Consultar_Designador", "_self");
+        }
+
+        function abrirModal_Rit_Lancados() {
+            window.open("#Modal_Rit_Lancados", "_self");
+        }
+
+        function abrirModal_Rit_OK() {
+            window.open("#Modal_Rit_OK", "_self");
+        }
+
+        function abrirModal_Rit_Processos() {
+            window.open("#Modal_Rit_Processos", "_self");
+        }
+
+        function abrirModal_Rit_Experiência() {
+            window.open("#Modal_Rit_Experiência", "_self");
+        }
+
+        function validaDesignador() {
+            if (document.getElementById("designador").value.length < 3) {
+                alert('Busque ao menos um Designador para prosseguir');
+                //document.getElementById("designador").focus();    //Atribuir
+                return false
+            }
+        }
+    </script>
+
+    <!-- Funcionar Tipos da falha Início -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.chkbx').click(function() {
+                var text = "";
+                $('.chkbx:checked').each(function() {
+                    text += $(this).val() + ',';
+                });
+                text = text.substring(0, text.length - 1);
+                $('#selectedtext').val(text);
+                var count = $("[type='checkbox']:checked").length;
+            });
+        });
+
+        $(document).ready(function() {
+            $('.chkbx_in').click(function() {
+                var text = "";
+                $('.chkbx_in:checked').each(function() {
+                    text += $(this).val() + ',';
+                });
+                text = text.substring(0, text.length - 1);
+                $('#selectedtextin').val(text);
+                var count = $("[type='checkbox']:checked").length;
+            });
+        });
+
+        $(document).ready(function() {
+            $('.chkbx_so').click(function() {
+                var text = "";
+                $('.chkbx_so:checked').each(function() {
+                    text += $(this).val() + ',';
+                });
+                text = text.substring(0, text.length - 1);
+                $('#selectedtextso').val(text);
+                var count = $("[type='checkbox']:checked").length;
+            });
+        });
+
+        $(document).ready(function() {
+            $('.chkbx_or').click(function() {
+                var text = "";
+                $('.chkbx_or:checked').each(function() {
+                    text += $(this).val() + ',';
+                });
+                text = text.substring(0, text.length - 1);
+                $('#selectedtextor').val(text);
+                var count = $("[type='checkbox']:checked").length;
+            });
+        });
+    </script>
+    <!-- Funcionar Tipos da falha Fim -->
+
+    <script>
+        var images = [];
+
+        function image_select() {
+            var image = document.getElementById('image').files;
+            for (i = 0; i < image.length; i++) {
+                if (check_duplicate(image[i].name)) {
+                    images.push({
+                        "name": image[i].name,
+                        "url": URL.createObjectURL(image[i]),
+                        "file": image[i],
+                        "index": i
+                    })
+                } else {
+                    alert(image[i].name + " já adicionada a lista");
+                }
+            }
+            //document.getElementById('form').reset();
+            document.getElementById('container_fotos').innerHTML = image_show();
+        }
+
+        function image_show() {
+            var image = "";
+            images.forEach((i) => {
+                image += `<div data-name="` + i.name + `" class="image_container d-flex justify-content-center position-relative">
+                                          <img src="` + i.url + `" alt="Image">
+                                          <span onclick="delete_image(` + images.indexOf(i) + `, ` + i.index + `)">&times;</span>
+                                  </div>`;
+            })
+            return image;
+        }
+
+        function removeFileFromFileList(index) {
+            const dt = new DataTransfer()
+            const input = document.getElementById('image')
+            const {
+                files
+            } = input
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]
+                if (index !== i)
+                    dt.items.add(file) // here you exclude the file. thus removing it.
+            }
+
+            input.files = dt.files // Assign the updates list
+        }
+
+        function delete_image(e, index) {
+
+            removeFileFromFileList(index);
+
+            images.splice(e, 1);
+            document.getElementById('container_fotos').innerHTML = image_show();
+        }
+
+        function check_duplicate(name) {
+            var image = true;
+            if (images.length > 0) {
+                for (e = 0; e < images.length; e++) {
+                    if (images[e].name == name) {
+                        image = false;
+                        break;
+                    }
+                }
+            }
+            return image;
+        }
+
+
+
+
+        function get_image_data() {
+            var form = new FormData();
+            for (let index = 0; index < images.length; index++) {
+                form.append("file[" + index + "]", images[index]["file"]);
+            }
+            return form;
+        }
+    </script>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+    <script src="script/script.js"></script>
+    <script src="./menu_toggle.js"></script>
+</body>
+
+</html>

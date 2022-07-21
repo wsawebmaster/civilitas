@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;500;600&display=swap");
+
+:root {
+  /* Variáveis CSS */
+ /* Fonte */
+  --font-login: 'Titillium Web',sans-serif;
+
+  /* Cores */
+  --purpura: rgb(102, 0, 153); 
+  --branco: #fff;  
+  --verde: rgb(4, 155, 4);
+  --verde-over: rgb(3, 93, 3);
+  --orange: rgb(235, 125, 37);
+  --textoMenu: rgba(192, 181, 181, 0.7);
+  --cinzaClaro: rgba(192, 181, 181, 0.7);
+  --cinzaEscuro: rgba(106, 96, 96, 0.7);
+
+  --fundo-subMenu: rgba(102, 0, 153, 0.945);
+  --sombraColor: rgba(235, 125, 37, 0.3), 0 0.5rem 2rem rgba(235, 125, 37, 0.2);
+  /* Tamanhos */
+  --bradius4: 4px;
+  --bradius7: 7px;
+  --titulo: 18px;
+  --texto: 16px;
+  --hinput: 40px;
+  --winput: 95%;
+  --wbutton: 100%;
+}
+
+*{
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body{
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background-image: url(../style/img/1.jpg);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    min-height: 100vh;
+    font-family: var(--font-login);
+}
+
+.container_cadastrar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    padding: 17px 0;
+    color: var(--branco);
+    /*text-transform: uppercase;*/
+    font-family: var(--fonte);
+    font-size: var(--titulo);
+    letter-spacing: 2.5px;
+    background: var(--purpura);
+    border-radius: var(--bradius7);
+}
+
+header:hover{
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+
+.textoMenu {
+  color: var(--textoMenu);
+  font-weight: bold;
+}
+.orange {
+  color: var(--orange);
+}
+div#mensagem{
+    position: fixed;
+    z-index: 1;
+    top: 5px;
+    width: 97%;
+    padding: 15px 0;
+    font-family: MuseoSans;
+    color: var(--branco);
+    background: #ffc36b;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: var(--bradius4);
+    display: none;
+}
+div#mensagem.red{
+    background: #F90055;
+}
+
+.formularioLogin, .formularioCadastro, .formulario_recuperar {
+    color: var(--branco);
+    background-color: rgba(0, 0, 0, 0.199);
+    max-width: 400px;
+    padding: 35px;
+    margin: 0 auto;
+    font-size: var(--titulo);
+    border-radius: var(--bradius7);
+}
+.formularioLogin input, .formularioCadastro > input, .formulario_recuperar input { 
+    background-color: transparent;
+    color: var(--branco);
+    width: var(--winput);
+    height: var(--hinput);
+    margin: 0 0 20px 0;
+    border: none;
+    border-radius: var(--bradius4);
+    outline: solid rgba(0, 0, 0, 0.315) 2px;
+    border-radius: 10px;
+    padding-left: 10px;
+    font-size: var(--texto);
+} 
+.formularioCadastro select {
+    font-size: var(--texto);
+    color: var(--cinzaClaro);
+    background-color: rgba(0, 0, 0, 0.315);
+    width: var(--wbutton);
+    height: var(--hinput);
+    margin-bottom:1rem;
+    border-radius: var(--bradius4);
+}
+.formularioCadastro select option {
+    color: var(--branco);
+    background-color: rgba(0, 0, 0, 0.009);
+}
+.formularioLogin input:focus, .formularioCadastro input:focus, .formularioCadastro select:focus, .formulario_recuperar input:focus { 
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+.formularioLogin input:hover, .formularioCadastro input:hover, .formularioCadastro select:hover, .formulario_recuperar input:hover { 
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+
+/*.formularioLogin input[type=submit] { */
+.formularioLogin button, .formularioCadastro button, .formulario_recuperar button { 
+    background-color: var(--verde);
+    color: var(--branco);
+    width: var(--wbutton);
+    height: var(--hinput);
+    margin:1rem 0;
+    border-radius: var(--bradius4);
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.formularioLogin button:hover, .formularioCadastro button:hover, .formulario_recuperar button:hover { 
+    background-color: var(--verde-over);
+    font-weight: bold;
+}
+.formularioLogin a, .formularioCadastro a, .formulario_recuperar a {
+    color: var(--cinzaClaro);
+    text-decoration: none;
+}
+.formularioLogin a:hover, .formularioCadastro a:hover, .formulario_recuperar a:hover {
+    color: var(--cinzaEscuro);
+    font-weight: bold;
+    background-color: var(--purpura);
+    color: #ccc;
+    padding: 20px;
+    border-radius: 20px 0 30px 0;
+}
+.formularioLogin ul li, .formulario_recuperar ul li {
+  display: flex;
+  justify-content: space-around;
+}
+
+.formularioCadastro ul {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.formularioCadastro li, .formularioCadastro a{
+  text-transform: uppercase;
+  list-style: none;
+  color: white;
+}
+
+.sexo_cadastrar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.315);
+  border-radius: 10px;
+  width: var(--winput);
+}
+
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 20%;
+  border: solid 2px;
+}
+
+.btnEntrar {
+  margin: 30px 0 0 0;
+}

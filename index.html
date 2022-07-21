@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suporte SPI</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <!-- swiper css link  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/classOptional.css">
+  </head>
+  <body>
+    <!-- header section starts  -->
+    <header class="header">
+      <div class="logo" data-anime="left">
+        <a href="index.html">Agroin<span>Tecnologia</span></a>
+      </div>
+
+      <nav class="navbar" data-anime="top">
+        <div id="close-navbar" class="fas fa-times"></div>
+        <a href="index.html">Home</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#atendimento">Atendimento</a>
+        <a href="#FAQ" style="margin-right: 0">FAQ</a>
+
+        <div class="menu-item menu-item-has-children">
+          <a href="#" data-toggle="sub-menu" style="margin: 0">Formulários<i class="plus"> </i></a>
+          <ul class="sub-menu">
+            <li class="menu-item"><a href="login" target="_blank">Rit</a></li>
+            <li class="menu-item"><a href="./rit" target="_blank">Rit - Serviço</a></li>
+            <li class="menu-item"><a href="painel/solicitar_acesso_colaborador" target="_blank">Solicitar Acesso</a></li>
+            <li class="menu-item"><a href="painel/solicitar_acesso_colaborador/consultar_solicitacao.php" target="_blank">Consultar Solicitação</a></li>
+            <li class="menu-item"><a href="olhovivo" target="_blank">Olho Vivo</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="icons" data-anime="top">
+        <a href="login" target="_blank"><div id="account-btn" class="fas fa-user"></div></a>
+        <div id="menu-btn" class="fas fa-bars"></div>
+      </div>
+    </header>
+
+    <!-- account form section starts  -->
+    <div class="account-form" hidden>
+      <div id="close-form" class="fas fa-times"></div>
+      <div class="buttons">
+        <span class="btn active login-btn">login</span>
+        <span class="btn register-btn">register</span>
+      </div>
+      <form class="login-form active" action="">
+        <h3>login now</h3>
+        <input type="email" placeholder="enter your email" class="box" />
+        <input type="password" placeholder="enter your password" class="box" />
+        <div class="flex">
+          <input type="checkbox" name="" id="remember-me" />
+          <label for="remember-me">remember me</label>
+          <a href="#">forgot password?</a>
+        </div>
+        <input type="submit" value="login now" class="btn" />
+      </form>
+      <form class="register-form" action="">
+        <h3>register now</h3>
+        <input type="email" placeholder="enter your email" class="box" />
+        <input type="password" placeholder="enter your password" class="box" />
+        <input
+          type="password"
+          placeholder="confirm your password"
+          class="box"
+        />
+        <input type="submit" value="register now" class="btn" />
+      </form>
+    </div>
+    <!-- account form section ends -->
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+    <section class="home">
+      <div class="swiper home-slider">
+        <div class="swiper-wrapper">
+          <section
+            class="swiper-slide slide"
+            style="background: url(assets/images/home-slide-1.jpg) no-repeat"
+          >
+            <div class="content" data-anime="left">
+              <h3>Seja Bem Vindo!</h3>
+              <p>
+                Aqui você encontrará diversas dicas sobre os serviços Vivo Fibra
+                e procedimentos Cluster São Paulo Interior
+              </p>
+              <a href="#servicos" class="btn">Serviços</a>
+            </div>
+          </section>
+
+          <section
+            class="swiper-slide slide"
+            style="background: url(assets/images/home-slide-2.jpg) no-repeat"
+          >
+            <div class="content">
+              <h3>Conectores Fibra</h3>
+              <p>
+                Tutorial para identificar o modelo e reforçar como montar o
+                conector de fibra óptica
+              </p>
+              <a href="#servicos" class="btn">Serviços</a>
+            </div>
+          </section>
+
+          <section
+            class="swiper-slide slide"
+            style="background: url(assets/images/home-slide-3.jpeg) no-repeat"
+          >
+            <div class="content">
+              <h3>Rede Wifi</h3>
+              <p>
+                Identificar principais barreiras e procedimentos para diminuir
+                interferências
+              </p>
+              <a href="#servicos" class="btn">Serviços</a>
+            </div>
+          </section>
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+    <!-- home section ends -->
+
+    <!-- services section starts  -->
+    <section id="servicos">
+      <h1 class="heading">Serviços</h1>
+
+      <div class="bloco" data-anime="right">
+        <!-- Início Linha  -->
+        <div class="quadro">
+          <img
+            id="linha"
+            class="quadro_img"
+            src="assets/images/phone-volume-solid.svg"
+          />
+          <div class="quadro_conteudo">
+            <h1 class="quadro_title">LINHA</h1>
+
+            <ul>
+              <li><a href="#Modal_Bloqueio">✯ Bloqueio </a></li>
+              <li>
+                <a
+                  href="https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaSituacaoAtualCtg"
+                  target="_blank"
+                  >Consultar Operadora
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://consultanumero.abrtelecom.com.br/consultanumero/consulta/consultaHistoricoRecenteCtg"
+                  target="_blank"
+                  >Consultar Hist&oacute;rico de Portabilidade
+                </a>
+              </li>
+              <li><a href="#Modal_PABX_nas_Nuvens">✯ PABX nas Nuvens </a></li>
+              <li>
+                <a href="#Modal_Secretaria_Eletronica"
+                  >✯ Secret&aacute;ria Eletr&ocirc;nica
+                </a>
+              </li>
+              <li><a href="#Modal_Siga-me">✯ Siga-me </a></li>
+              <li>
+                <a href="#Modal_Identificador_de_Chamadas"
+                  >✯ Identificador de Chamadas
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Fim Linha -->
+
+        <!-- Início Banda  -->
+        <div class="quadro">
+          <img alt="" class="quadro_img" src="assets/images/wifi-solid.svg" />
+          <div class="quadro_conteudo">
+            <h1 class="quadro_title">BANDA</h1>
+
+            <ul>
+              <li>
+                <a href="#Modal_Abertura_de_Porta">✯ Abertura de Porta </a>
+              </li>
+              <li>
+                <a href="#Modal_Alterar_Wifi2.4GHz">✯ Alterar Wifi 2.4GHz </a>
+              </li>
+              <li>
+                <a href="#Modal_Alterar_Wifi5GHz">✯ Alterar Wifi 5GHz </a>
+              </li>
+              <li>
+                <a href="#Modal_Alterar Modo de Operação do HGU"
+                  >✯ Alterar Modo de Opera&ccedil;&atilde;o do HGU
+                </a>
+              </li>
+              <li><a href="#Modal_Baseport">✯ Baseport </a></li>
+              <li><a href="#Modal_Configurar_SLID">✯ Configurar SLID </a></li>
+              <li>
+                <a
+                  href="https://www.blacklistmaster.com/?attempt=1"
+                  target="_blank"
+                  >Consultar blacklist
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.base64.com.br/suporte/multirbl"
+                  target="_blank"
+                  >Consultar bloqueio de IP
+                </a>
+              </li>
+              <li>
+                <a href="https://downdetector.com.br/" target="_blank"
+                  >Consultar Falha de servi&ccedil;os
+                </a>
+              </li>
+              <li>
+                <a href="https://testedeportas.com/" target="_blank"
+                  >Consultar Status de Porta
+                </a>
+              </li>
+              <li><a href="#Modal_Firmwares">✯ Firmwares Atuais </a></li>
+              <li><a href="#Modal_Home_Assist">✯ Home Assist </a></li>
+              <li>
+                <a href="#Modal_Servicos_Digitais"
+                  >✯ Servi&ccedil;os Digitais
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Fim Banda -->
+
+        <!-- Início TV  -->
+        <div class="quadro">
+          <img alt="" class="quadro_img" src="assets/images/tv-solid.svg" />
+          <div class="quadro_conteudo">
+            <h1 class="quadro_title">TV</h1>
+
+            <ul>
+              <li>
+                <a href="#Modal_Certificacao_Mediaroom"
+                  >✯ Certificação Mediaroom</a
+                >
+              </li>
+              <li>
+                <a href="#Modal_Certificacao_Open"
+                  >✯ Certificação Open Plataforma</a
+                >
+              </li>
+              <li>
+                <a href="#Modal_Certificacao_Netinf">✯ Certificação NetInf</a>
+              </li>
+              <li>
+                <a href="#Modal_Configurar_Controle"
+                  >✯ Configurar Controle Função TV</a
+                >
+              </li>
+              <li><a href="#Modal_Reset">✯ Efetuar Reset</a></li>
+              <li>
+                <a href="Grade_de_Canais.pdf" target="_blank"
+                  >Grade de Canais
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/tv/grades-de-canais?q=grade"
+                  target="_blank"
+                  >Grade de Canais por Cep
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Fim TV -->
+      </div>
+
+      <!-- Início Linha Conteúdo -->
+      <!-- Início exibir Modal_Bloqueio -->
+      <div class="modal" id="Modal_Bloqueio">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Bloqueio</h2>
+
+          <div>
+            <ol>
+              <li id="i">
+                O cliente ap&oacute;s contratar o servi&ccedil;o dever&aacute;
+                realizar a configura&ccedil;&atilde;o para que comece a
+                utilizar.
+              </li>
+              <li></li>
+              <li id="in">
+                <span>Ativar Celular:</span
+                ><span class="info"> *66*1234*00#</span>
+              </li>
+              <li id="in">
+                <span>Ativar Celular + Interurbano:</span
+                ><span class="info"> *66*1234*04#</span>
+              </li>
+              <li id="in">
+                <span>Desativar:</span><span class="info"> #66*1234#</span>
+              </li>
+              <li></li>
+              <li id="obs">
+                <strong>Obs.:</strong> <span class="info">1234</span> representa
+                os quatro &uacute;ltimos d&iacute;gitos na inst&acirc;ncia
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Bloqueio -->
+
+      <!-- Início exibir Modal_PABX_nas_Nuvens -->
+      <div class="modal" id="Modal_PABX_nas_Nuvens">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>PABX nas Nuvens</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span
+                  ><a href="PABX_nas_Nuvens_Servico.pdf"
+                    >Explica&ccedil;&atilde;o do Servi&ccedil;o</a
+                  ></span
+                ><a href="PABX_nas_Nuvens_Servico.pdf"> </a>
+              </li>
+              <li id="in">
+                <a href="PABX_nas_Nuvens.pdf"><span>Manual</span> </a>
+              </li>
+              <li id="in">
+                <a href="https://vivopabxnanuvem.com.br/Login/" target="_blank"
+                  ><span>Site</span>
+                </a>
+              </li>
+            </ol>
+          </div>
+          <a href="https://vivopabxnanuvem.com.br/Login/" target="_blank"> </a>
+        </div>
+      </div>
+      <p>
+        <a href="https://vivopabxnanuvem.com.br/Login/" target="_blank">
+          <!-- Fim exibir Modal_PABX_nas_Nuvens -->
+
+          <!-- Início exibir Modal_Secretária_Eletrônica -->
+        </a>
+      </p>
+      <div class="modal" id="Modal_Secretaria_Eletronica">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Secret&aacute;ria Eletr&ocirc;nica</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Para Ouvir Tecle:</span><span class="info"> *555 </span>
+              </li>
+              <li></li>
+              <li id="obs">
+                <strong>Obs.:</strong> A senha inicial s&atilde;o os quatro
+                &uacute;ltimos d&iacute;gitos da inst&acirc;ncia
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Secretária_Eletrônica -->
+
+      <!-- Início exibir Modal_Siga-me -->
+      <div class="modal" id="Modal_Siga-me">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Siga-me</h2>
+
+          <div>
+            <ol>
+              <li id="i">
+                Permite que o usu&aacute;rio programe a transfer&ecirc;ncia de
+                chamadas de um telefone para qualquer outro n&uacute;mero, seja
+                ele fixo, celular ou interurbano. Dessa forma, quando
+                algu&eacute;m liga para sua empresa, automaticamente a chamada
+                ser&aacute; desviada para o n&uacute;mero cadastrado.
+              </li>
+              <li></li>
+              <li id="i">
+                Se o n&uacute;mero que ir&aacute; receber as chamadas desviadas
+                tiver no mesmo DDD
+              </li>
+              <li></li>
+              <li id="in">
+                <span>Basta Teclar:</span
+                ><span class="info"> *52*912341234# </span>
+              </li>
+              <li id="in">
+                <span>Estando em DDD diferente:</span
+                ><span class="info"> *52*11912341234# </span>
+              </li>
+              <li id="in">
+                <span>Desativar:</span><span class="info"> #52# </span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Siga-me -->
+
+      <!-- Início exibir Modal_Identificador_de_Chamadas -->
+      <div class="modal" id="Modal_Identificador_de_Chamadas">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Identificador de Chamadas</h2>
+
+          <div>
+            <ol>
+              <li id="i">
+                Ap&oacute;s contratar o servi&ccedil;o, o cliente deve utilizar
+                um aparelho compat&iacute;vel com a tecnologia
+                <strong>DTMF</strong>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Identificador_de_Chamadas -->
+
+      <!-- Fim Linha Conteúdo -->
+
+      <!-- Início Banda Conteúdo -->
+      <!-- Início exibir Modal_Abertura_de_Porta -->
+      <div class="modal" id="Modal_Abertura_de_Porta">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Abertura de Portas</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url </span
+                ><a href="http://192.168.15.1" target="_blank"
+                  ><span class="info">http://192.168.15.1</span></a
+                >
+              </li>
+              <li id="in">
+                <span>Clique em Configura&ccedil;&otilde;es</span>
+              </li>
+              <li id="in"><span>Clique em Rede Local</span></li>
+              <li id="in"><span>Usu&aacute;rio: admin</span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in"><span>Clique em Redirecionar Portas</span></li>
+              <li id="in">
+                <span
+                  >Nome da regra, porta externa e interca costumo colocar o
+                  n&uacute;mero da porta</span
+                >
+              </li>
+              <li id="in">
+                <span>Protocolo correspondente deve ser selecionado</span>
+              </li>
+              <li id="in">
+                <span
+                  >IP Externo n&atilde;o precisa preencher e no IP Interno
+                  informe o IP designado que deve estar na mesma range do
+                  HGU</span
+                >
+              </li>
+              <li></li>
+              <li id="in">
+                <span
+                  ><strong>ATEN&Ccedil;&Atilde;O:</strong> Para que a o status
+                  da porta seja exibida como Aberta voc&ecirc; deve configurar o
+                  Redirecionamento e ter uma aplica&ccedil;&atilde;o em
+                  execu&ccedil;&atilde;o!</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Ao todo &eacute; poss&iacute;vel usar 65536 portas
+                  TCP/UDP.</span
+                >
+              </li>
+              <li></li>
+              <li id="in">
+                <span
+                  >No servi&ccedil;o de <strong>IP Fixo</strong> todas as portas
+                  s&atilde;o liberadas, bastando criar o redirecionamento e ter
+                  uma aplica&ccedil;&atilde;o em execu&ccedil;&atilde;o</span
+                >
+              </li>
+              <li></li>
+              <li id="in">
+                <span
+                  >No servi&ccedil;o de
+                  <strong>IP Din&acirc;mico</strong> s&atilde;o bloqueadas
+                  algumas portas como: 25, 53, 69, 135, 136, 137, 138, 139, 445,
+                  593, 1433, 1434, 3127, 3128, 4444, 5535, 5554, 6588, 8080,
+                  9898, 9988, 12345, 12346, 31337</span
+                >
+              </li>
+              <li id="in">
+                <span>Portas 8080 e 5535 s&atilde;o de uso da Vivo</span>
+              </li>
+              <li id="in">
+                <span
+                  >Portas de 1 a 1024 s&atilde;o portas reservadas como:
+                  http(80), HTTPS(443), SSH(22), dentre outras.</span
+                >
+              </li>
+              <li id="in"><span>&nbsp; </span></li>
+              <li id="in">
+                <span
+                  >A fun&ccedil;&atilde;o NAT loopback permite que
+                  servi&ccedil;os acessados externamente tamb&eacute;m sejam
+                  acessados na rede local.</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  ><a
+                    href="https://www.wsysteminformatica.com.br/telecom/testeportas.zip"
+                    target="_blank"
+                    >Download Servidor para teste
+                  </a>
+                </span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Abertura_de_Porta -->
+
+      <!-- Início exibir Modal_Alterar_wifi2.4GHz -->
+      <div class="modal" id="Modal_Alterar_Wifi2.4GHz">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Alterar Wifi 2.4GHz</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url </span
+                ><a href="http://192.168.15.1" target="_blank"
+                  ><span class="info">http://192.168.15.1</span></a
+                >
+              </li>
+              <li id="in">
+                <span>Clique em Configura&ccedil;&otilde;es</span>
+              </li>
+              <li id="in"><span>Clique em Rede Wi-Fi 2,4 GHz</span></li>
+              <li id="in"><span>Usu&aacute;rio: admin</span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Digite o nome da rede no campo SSID e a senha abaixo</span
+                >
+              </li>
+              <li id="in"><span>Clique em Salvar</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Alterar_wifi2.4GHz -->
+
+      <!-- Início exibir Modal_Alterar_wifi5GHz -->
+      <div class="modal" id="Modal_Alterar_Wifi5GHz">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Alterar Wifi 5GHz</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url</span>
+                <a href="http://192.168.15.1" target="_blank"
+                  ><span class="info">http://192.168.15.1</span></a
+                >
+              </li>
+              <li id="in">
+                <span>Clique em Configura&ccedil;&otilde;es</span>
+              </li>
+              <li id="in"><span>Clique em Rede Wi-Fi 5 GHz</span></li>
+              <li id="in"><span>Usu&aacute;rio: admin </span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Digite o nome da rede no campo SSID e a senha abaixo</span
+                >
+              </li>
+              <li id="in"><span>Clique em Salvar</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Alterar_wifi5GHz -->
+
+      <!-- Início exibir Modal_Alterar Modo de Operação do HGU -->
+      <div class="modal" id="Modal_Alterar Modo de Operação do HGU">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Alterar Modo de Opera&ccedil;&atilde;o do HGU</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url</span>
+                <a href="http://192.168.15.1" target="_blank"
+                  ><span class="info">http://192.168.15.1</span></a
+                >
+              </li>
+              <li id="in">
+                <span>Clique em Configura&ccedil;&otilde;es</span>
+              </li>
+              <li id="in"><span>Clique em Modo WAN</span></li>
+              <li id="in"><span>Usu&aacute;rio: admin </span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in"><span>Selecione o Modo desejado</span></li>
+              <li id="in">
+                <span
+                  >Router: Configura&ccedil;&atilde;o Padr&atilde;o onde o
+                  pr&oacute;prio HGU estabelece a conex&atilde;o e libera a
+                  navega&ccedil;&atilde;o</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Bridge: &Eacute; necess&aacute;rio equipamento particular
+                  para estabelecer conex&atilde;o PPPOE</span
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Alterar Modo de Operação do HGU -->
+
+      <!-- Início exibir Modal_Baseport -->
+      <div class="modal" id="Modal_Baseport">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Configurar Baseport</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span
+                  >Verifique se o interruptor est&aacute; na
+                  posi&ccedil;&atilde;o Rep</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Ligue o Baseport numa dist&acirc;ncia aproximada de 2 metros
+                  do HGU</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Aguarde aproximadamente 5 minutos para dar prosseguimento a
+                  instala&ccedil;&atilde;o</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Mantenha pressionado por 2 segundos o bot&atilde;o Wifi
+                  5GHz/WPS. O LED Wifi 5GHz ir&aacute; piscar em azul.
+                </span>
+              </li>
+              <li id="in">
+                <span
+                  >V&aacute; at&eacute; o HGU e mantenha pressionado
+                  tamb&eacute;m o bot&atilde;o Wifi 5GHz/WPS por 2 segundos e
+                  solte. O LED Wifi 5GHz ir&aacute; piscar em azul.</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  >Aguarde aproximadamente 2 minutos at&eacute; que todos os
+                  LEDs fiquem na cor azul e constantes. Pronto!
+                </span>
+              </li>
+              <li id="in">
+                <span
+                  >Agora voc&ecirc; pode desligar o Repetidor e lev&aacute;-lo
+                  ao local estrat&eacute;gico para melhorar o sinal Wifi.</span
+                >
+              </li>
+              <li id="in">
+                <span
+                  ><strong>Obs.:</strong> Led na cor Azul indica que est&aacute;
+                  numa dist&acirc;ncia adequada, led Verde numa dist&acirc;ncia
+                  intermedi&aacute;ria e led Vermelho numa dist&acirc;ncia
+                  n&atilde;o recomendada.</span
+                >
+              </li>
+              <li>
+                <a
+                  href="https://lojaonline.vivo.com.br/vivostorefront/Vivo/Acess%C3%B3rios/REPETIDOR-VIVO-SMART-WI-FI/p/22018185?bestPlanCode=&amp;origem=feed-google-shopping"
+                  target="_blank"
+                  >Mais informa&ccedil;&otilde;es...
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Baseport -->
+
+      <!-- Início exibir Modal_Configurar_SLID -->
+      <div class="modal" id="Modal_Configurar_SLID">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Configurar SLID</h2>
+
+          <div>
+            <ol>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url</span>
+                <a href="http://192.168.15.1/instalador" target="_blank"
+                  ><span class="info">http://192.168.15.1/instalador</span>
+                </a>
+              </li>
+              <li id="in"><span>Usu&aacute;rio: Support</span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in"><span>Digite o SLID designado do cliente</span></li>
+              <li id="in">
+                <span>Clique no primeiro bot&atilde;o Aplicar</span>
+              </li>
+              <li id="in">
+                <span>Selecione a Regi&atilde;o correspondente a Rede</span>
+              </li>
+              <li id="in">
+                <span>Clique no primeiro bot&atilde;o Aplicar abaixo</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Configurar_SLID -->
+
+      <!-- Inicio exibir firmwares -->
+      <div class="modal" id="Modal_Firmwares">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Lista de Firmwares Atualizada15/02/2022)</h2>
+
+          <ul>
+            <li id="in">
+              <span>HGU Mitrastar BRCM Vivo1 - GPT-2541GNAC-N1:</span>
+              <span class="info">BR_g3.5_100VNZ0b33</span>
+            </li>
+            <li id="in">
+              <span>HGU Mitrastar BRCM Vivo2 - GPT-2541GNAC-N2:</span>
+              <span class="info">BR_g3.5_100VNZ0b33</span>
+            </li>
+            <li id="in">
+              <span>HGU Mitrastar HPNA Econect Vivo1 - GPT-2731GN2A4P:</span>
+              <span class="info">BR_g5.9_1.11(WVK.0)b32</span>
+            </li>
+            <li id="in">
+              <span>HGU Mitrastar HPNA Econect Vivo2 - GPT-2731GN2A4P-N2:</span>
+              <span class="info">BR_g5.9_1.11(WVK.0)b32</span>
+            </li>
+            <li id="in">
+              <span>HGU Mitrastar Econect Vivo1 - GPT-2741GNAC-N1:</span>
+              <span class="info">BR_g5.9_1.11(WVK.0)b32</span>
+            </li>
+            <li id="in">
+              <span>HGU Mitrastar Econect Vivo1 - GPT-2741GNAC-N2:</span>
+              <span class="info">BR_g5.9_1.11(WVK.0)b32</span>
+            </li>
+
+            <li id="in">
+              <span>HGU Askey BRCM Vivo1 - RTF-3505VW-N1:</span>
+              <span class="info">BR_SV_g000_R3505VWN1001_s36</span>
+            </li>
+            <li id="in">
+              <span>HGU Askey BRCM Vivo2 - RTF-3505VW-N2:</span>
+              <span class="info">BR_SV_g000_R3505VWN1001_s36</span>
+            </li>
+            <li id="in">
+              <span>HGU Askey HPNA BRCM Vivo1 - RTF-3507VW-N1:</span>
+              <span class="info">BR_SV_g000_R3507VWN1001_s36</span>
+            </li>
+            <li id="in">
+              <span>HGU Askey HPNA BRCM Vivo2 - RTF-3507VW-N2:</span>
+              <span class="info">BR_SV_g000_R3507VWN1001_s36</span>
+            </li>
+            <li id="in">
+              <span>HGU Askey Econect - RTF-8115VW:</span>
+              <span class="info">BR_SV_g12.6_RTF_TEF001_V7.20_V016</span>
+            </li>
+            <li id="in">
+              <span>HGU Askey HPNA Econect - RTF-8117VW:</span>
+              <span class="info">BR_SV_g12.6_RTF_TEF001_V7.20_V016</span>
+            </li>
+            <li id="in">
+              <span>Base Port MitraStar - HGW-500SN2A4-Qv3:</span>
+              <span class="info">GL_g7.7_100WZA0b19_1)</span>
+            </li>
+            <li id="in">
+              <span>Base Port Askey - RG3110W:</span>
+              <span class="info">GL_7.5_RG3110W0.4.18</span>
+            </li>
+            <li id="in">
+              <span>ATA Grandstream 2 Portas - HT812:</span>
+              <span class="info">1.0.13.12</span>
+            </li>
+            <li id="in">
+              <span>ATA Grandstream 4 Portas - HT814:</span>
+              <span class="info">1.0.13.12</span>
+            </li>
+            <li id="in">
+              <span>ATA Audiocodes 2 Portas - MP202:</span>
+              <span class="info">4.4.9_build_156</span>
+            </li>
+            <li id="in">
+              <span>ATA Audiocodes 4 Portas - MP204:</span>
+              <span class="info">4.4.9_build_156</span>
+            </li>
+            <li></li>
+            <li id="obs"></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Fim exibir firmwares -->
+
+      <!-- Início exibir Modal_Home_Assist -->
+      <div class="modal" id="Modal_Home_Assist">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Home Assist</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li>
+                &Eacute; um servi&ccedil;o de Assist&ecirc;ncia t&eacute;cnica
+                especializada
+              </li>
+              <li>
+                Fone:
+                <a href="tel:0800%20772-2622" target="_blank">0800-772-2622</a>
+              </li>
+              <li>
+                WhatsApp:
+                <a
+                  href="https://api.whatsapp.com/send?phone=551130393057&amp;text=Vivo%20Home%20Assist"
+                  target="_blank"
+                  >113039-3057</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/internet/home-assist"
+                  target="_blank"
+                  >Mais informa&ccedil;&otilde;es...
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Home_Assist -->
+
+      <!-- Início exibir Modal_Servicos_Digitais -->
+      <div class="modal" id="Modal_Servicos_Digitais">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Servicos Digitais</h2>
+
+          <div>
+            <ol>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/ajuda/sou-novo-aqui/internet/ativar-conta-disney-plus"
+                  target="_blank"
+                  >Ativar Disney+ no plano
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/ajuda/sou-novo-aqui/internet/ativar-conta-netflix"
+                  target="_blank"
+                  >Ativar Netflix no plano
+                </a>
+              </li>
+              <li></li>
+              <li>Planos Contratados at&eacute; <strong>10mb</strong></li>
+              <li>
+                <a href="https://site.funkidsapp.com/login" target="_blank"
+                  >Funkids App
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/internet/planos-de-internet-vivo-fibra/apps-inclusos-no-plano/clube-de-revistas"
+                  target="_blank"
+                  >Clube de Revistas
+                </a>
+              </li>
+              <li>
+                <a href="https://bandnewstv.band.uol.com.br/" target="_blank"
+                  >BandNews TV
+                </a>
+              </li>
+              <li></li>
+              <li>
+                Planos Contratados de
+                <strong>15mb at&eacute; 200mb</strong> (Todos &iacute;tens acima
+                mais estes abaixo)
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/internet/planos-de-internet-vivo-fibra/apps-inclusos-no-plano/estadio-tnt-sports"
+                  target="_blank"
+                  >Est&aacute;dio TNT Esportes
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/internet/planos-de-internet-vivo-fibra/apps-inclusos-no-plano/bancah"
+                  target="_blank"
+                  >Bancah Jornais
+                </a>
+              </li>
+              <li></li>
+              <li>
+                Planos Contratados de <strong>300mb</strong> (Todos &iacute;tens
+                acima mais este abaixo)
+              </li>
+              <li>
+                <a href="https://www.paramountmais.com/br/" target="_blank"
+                  >Paramount+
+                </a>
+                Primeiro obtenha o
+                <a
+                  href="https://codigopromocional-paramount.terra.com/"
+                  target="_blank"
+                >
+                  Voucher
+                </a>
+                digitando CPF do titular
+              </li>
+              <li>
+                No site da Paramout+ selecione Fazer login com operadora,
+                C&oacute;digo Promocional e digite o c&oacute;digo obtido
+              </li>
+              <li></li>
+              <li>
+                <a
+                  href="https://www.vivo.com.br/para-voce/produtos-e-servicos/para-casa/internet"
+                  target="_blank"
+                  >Mais informa&ccedil;&otilde;es...
+                </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Servicos_Digitais -->
+      <!-- Fim Banda Conteúdo -->
+
+      <!-- Início TV Conteúdo -->
+      <!-- Início exibir Modal_Certificacao_Mediaroom -->
+      <div class="modal" id="Modal_Certificacao_Mediaroom">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Certificação Mariner Mediaroom</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li>Pressione a Tecla Menu</li>
+              <li>Configurações</li>
+              <li>Outros</li>
+              <li>Teste de Certificação</li>
+              <li>OK</li>
+              <li>Senha: 121212</li>
+              <li>Digite Vivo</li>
+              <li>Clique em OK</li>
+              <li>Aguarde a busca dos pontos ativos</li>
+              <li>Selecione a opção <strong>Certificar</strong></li>
+              <li>Depois <strong>Iniciar Teste</strong></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Certificacao_Mediaroom -->
+
+      <!-- Início exibir Modal_Certificacao_Open -->
+      <div class="modal" id="Modal_Certificacao_Open">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Certificação Mariner Open Plataforma</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li>Info Vermelho 8486 Azul</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Certificacao_Open -->
+
+      <!-- Início exibir Netinf -->
+      <div class="modal" id="Modal_Certificacao_Netinf">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Certificação NetInf</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li id="in">
+                <span>Abra o navegador de sua prefer&ecirc;ncia</span>
+              </li>
+              <li id="in">
+                <span>Acesse a url </span
+                ><a href="http://192.168.15.1" target="_blank"
+                  ><span class="info">http://192.168.15.1</span></a
+                >
+              </li>
+              <li id="in"><span>Clique em Gerenciamento</span></li>
+              <li id="in"><span>Clique em Ferramentas</span></li>
+              <li id="in"><span>Usu&aacute;rio: admin</span></li>
+              <li id="in">
+                <span
+                  >Senha: Localizada na parte inferior do HGU (Dados de acesso
+                  ao Roteador)</span
+                >
+              </li>
+              <li id="in"><span>Clique em NetInf</span></li>
+              <li id="in">
+                <span
+                  >Alterar Potência Mínima Aceitável conforme quantidade de
+                  pontos</span
+                >
+              </li>
+              <li id="in"><span>1: -5,0dBm</span></li>
+              <li id="in"><span>2: -11,5dBm</span></li>
+              <li id="in"><span>3: -19,5dBm</span></li>
+              <li id="in"><span>4: -28,0dBm</span></li>
+              <li id="in"><span>5: -36,5dBm</span></li>
+              <li id="in"><span>6: -40,0dBm</span></li>
+              <li></li>
+              <li id="obs">
+                <strong>Obs.:</strong> Este teste avalia somente a rede coaxial,
+                não considerar pontos conectados via Wi-fi ou cabo RJ45
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Certificacao_Open -->
+
+      <!-- Início exibir Modal_Reset -->
+      <div class="modal" id="Modal_Reset">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Efetuar Reset</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li id="in">
+                <span
+                  ><strong>STB: </strong>Esqueda Direita 1397 Amarelo Azul</span
+                >
+              </li>
+              <li>&nbsp;</li>
+              <li id="in">
+                <span
+                  ><strong>HD DVR: </strong>Cima Baixo 1397 Verde Amarelo</span
+                >
+              </li>
+              <li>&nbsp;</li>
+              <li id="in">
+                <span
+                  ><strong>Controle TV: </strong>Aperte e segure simultaneamente
+                  1 e 6 por 3 segundos(a tecla TV piscará 2 vezes e permanecerá
+                  acesa) Digite 9, 8 e 1(a tecla DECODER piscará 2 vezes
+                  confirmando êxito no procedimento</span
+                >
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Reset -->
+
+      <!-- Início exibir Modal_Configura_Controle -->
+      <div class="modal" id="Modal_Configurar_Controle">
+        <div>
+          <a class="fechar_modal" href="#fechar_modal" title="Fechar_modal"
+            >X</a
+          >
+
+          <h2>Configura Controle Função TV</h2>
+
+          <div>
+            <ol>
+              <li></li>
+              <li><strong>Configuração Manual</strong></li>
+              <li>&nbsp;</li>
+              <li>
+                1. Aperte a tecla TV (o LED TV piscará indicando que está na
+                função TV)
+              </li>
+              <li>
+                2. Aperte e segure simultaneamente as teclas 1 e 3 por 3
+                segundos (a tecla TV piscará 2 vezes e permanecerá acesa)
+              </li>
+              <li>3. Digite o código correspondente ao modelo da TV</li>
+              <li>
+                4. Quando o código é válido a tecla TV piscará duas vezes e
+                apagará confirmando a inclusão
+              </li>
+              <li>
+                5. Teste pressionando a tecla POWER e veja o comportamento da TV
+              </li>
+              <li>6. Caso não tenha sucesso repita os passo de 2 a 5</li>
+              <li>&nbsp;</li>
+              <li><strong>Configuração Automática</strong></li>
+              <li>&nbsp;</li>
+              <li>
+                1. Aperte a tecla TV e OK simultaneamente(o LED TV piscará
+                indicando que está na função TV)
+              </li>
+              <li>
+                2. Aponte para TV e mantenha pressionado a seta para Direita
+              </li>
+              <li>
+                3. Assim que a TV desligar aperte a tecla OK para confirmar
+                configuração
+              </li>
+              <li>&nbsp;</li>
+              <li id="obs">
+                <strong>Obs.:</strong> Em alguns modelos antigos pode ser que
+                não funcione esta função
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <!-- Fim exibir Modal_Configura_Controle -->
+
+      <!-- Fim TV Conteúdo -->
+    </section>
+    <!-- services section ends -->
+
+    <!-- attendance section starts  -->
+    <section id="atendimento">
+      <h1 class="heading">Atendimento Vivo</h1>
+
+
+            <!-- Cards Início -->
+            <div class="cards-list">
+                <div class="card 1">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>CO Vivo 1</h1></div>
+                          <a href="tel:08006012032"><h2>0800 601 2032</h2></a>
+                </div>
+              
+                <div class="card 2">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>CO Vivo 2</h1></div>
+                            <a href="tel:08006009192"><h2>0800 600 9192</h2></a>
+                </div>
+
+                <div class="card 3">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Vivo TV Plus</h1></div>
+                            <a href="tel:10615"><h2>106 15</h2></a>
+                </div>
+
+                <div class="card 4">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Vivo Fixo e Internet</h1></div>
+                            <a href="tel:10315"><h2>103 15</h2></a>
+                </div>
+
+            </div>
+
+            <div class="cards-list">
+                <div class="card 1">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Contratar Planos</h1></div>
+                          <a href="tel:08005631515"><h2>0800 563 1515</h2></a>
+                </div>
+              
+                <div class="card 2">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Móvel Novos clientes</h1></div>
+                            <a href="tel:1058"><h2>1058</h2></a>
+                </div>
+
+                <div class="card 3">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Suporte Móvel</h1></div>
+                            <a href="tel:*8486"><h2>*8486</h2></a>
+                </div>
+
+                <div class="card 4">
+                    <div class="card_image"><img src="assets/images/phone-flip-solid.svg"></div>
+                        <div class="card_title"><h1>Saldo Pós-Pago</h1></div>
+                            <a href="tel:*8012"><h2>*8012</h2></a>
+                </div>
+
+            </div>
+            <!-- Cards Fim -->
+
+
+    </section>
+    <!-- attendance section ends -->
+    
+    <!-- FAQ section starts  -->
+    <section id="FAQ">
+      <h1 class="heading">Base de Conhecimentos (FAQ)</h1>
+        
+      <img src="assets/images/constru.gif">
+
+    </section>
+    <!-- FAQ section ends -->
+
+    <!-- footer section starts  -->
+    <div class="footer">
+      <span class="footer">Redes Sociais Vivo: &nbsp
+        <a href="http://www.FAQebook.com/vivo" target="_blank"
+          ><img src="assets/images/logo_facebook.png"
+        /></a>
+        <a href="http://instagram.com/vivo" target="_blank"
+          ><img src="assets/images/logo_instagram.png"
+        /></a>
+        <a href="http://www.youtube.com/vivo" target="_blank"
+          ><img src="assets/images/logo_youtube.png"
+        /></a>
+        <a href="http://twitter.com/vivobr" target="_blank"
+          ><img src="assets/images/logo_twitter.png"
+        /></a>
+        <br /><br />
+        <a href="https://www.telefonica.com.br/" target="_blank">
+          <img src="assets/images/logo_telefonica.png" /></a
+        ><br />
+        Copyright &copy; 2021 Qualidade Cluster Interior &nbsp&nbsp |&nbsp&nbsp
+        Desenvolvido por Thiago Roberto e Wagner Andrade
+      </span>
+    </div>
+    <!-- footer section ends -->
+
+    <!-- swiper js link  -->
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+    <!-- custom js file link  -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/anima.js"></script>
+  </body>
+</html>

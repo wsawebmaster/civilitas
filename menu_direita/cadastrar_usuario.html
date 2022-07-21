@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Suporte SPI - Cadastrar</title>
+	<link rel="stylesheet" type="text/css" href="style/login.css" />
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="script/jquery.js"></script>
+	<script type="text/javascript" src="script/cadastro.js"></script>
+
+</head>
+
+<body>
+
+	<div id="mensagem"></div>
+	
+	<div class="container_cadastrar">
+		<form class="formularioCadastro" id="formularioCadastro" method="POST" action="">
+			<header>Cadastro de Usuário</header><br />
+	
+			    <input type="text" name="nome" id="nome" placeholder="Nome completo">
+				<input type="email" name="email" id="email" placeholder="E-mail">
+				<input type="text" name="re" id="re" placeholder="RE">
+				<input type="password" name="senha" id="senha" placeholder="Senha" />
+				<input type="password" name="csenha" id="csenha" placeholder="Confirmar Senha" />
+				<input type="text" name="empresa" placeholder="Empresa">
+				<input type="text" name="cargo" placeholder="Cargo">
+				<input type="tel" name="numero" placeholder="Celular Corporativo" pattern="[0-9](3)-(2)[0-9]{2}-[0-9]{3}">
+				<input type="tel" name="numero" placeholder="Celular Particular">
+
+				<div class="sexo_cadastrar">
+				
+				<div class="sx_feminino">
+					<input type="radio" class="f-cadastrar" name="F" value="0">
+					<label for="f-cadastrar">Feminino</label>
+				</div>
+
+				<div class="sx_masculino">
+					<input type="radio" class="m-cadastrar" name="M" value="1">
+					<label for="m-cadastrar">Masculino</label>
+				</div>
+
+			</div>
+
+			<button id="btnCadastrar" class="btnCadastrar">Cadastrar</button>
+	
+			<ul class="btnEntrar">
+				<li><a href="index.php">Entrar</a></li>
+			</ul>
+		</form>
+	</div>
+
+</body>
+</html>

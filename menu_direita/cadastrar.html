@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Suporte SPI - Cadastrar</title>
+        <link rel="stylesheet" type="text/css" href="style/form.css" />
+  		<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+        <script type="text/javascript" src="script/jquery.js"></script>
+
+
+	</head>
+	<body>
+
+		<form class="formularioCadastro" method="POST" action="acoes/cadastrarLogin.php">
+			        <header>Cadastro de Usuário</header><br />
+
+				<input type="text" name="nome" placeholder="Nome completo" required>
+				<input type="email" name="email" id="email" placeholder="E-mail" required>
+				<input type="current-password" name="senha" id="senha" placeholder="Senha" required>
+				<button type="submit" name="btnCadastrar">Cadastrar</button><br><br>
+
+				<div style="display:none;background-color:#fff;text-align:center"> 				
+					Já tem acesso? <a href="login.php">Entrar</a>
+				</div>
+			</form>
+	</body>
+</html>

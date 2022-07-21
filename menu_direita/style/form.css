@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;500;600&display=swap");
+
+:root {
+  /* Variáveis CSS */
+ /* Fonte */
+  --font-login: 'Titillium Web',sans-serif;
+
+  /* Cores */
+  --purpura: rgb(102, 0, 153); 
+  --branco: #ffffff;  
+  --verde: rgb(4, 155, 4);
+  --verde-over: rgb(3, 93, 3);
+  --fundo-subMenu: rgba(102, 0, 153, 0.945);
+  --sombraColor: rgba(235, 125, 37, 0.3), 0 0.5rem 2rem rgba(235, 125, 37, 0.2);
+  /* Tamanhos */
+  --bradius4: 4px;
+  --bradius7: 7px;
+  --titulo: 18px;
+  --texto: 16px;
+  --hinput: 40px;
+  --winput: 95%;
+}
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+body, html{
+    height: 100%;
+    font-family: var(--font-login);
+    overflow-x: hidden;
+    overflow-y: hidden;    
+}
+body{
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-image: url(../style/img/1.jpg);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+}
+header{
+    display: flex;
+    justify-content: center;
+    padding: 17px 0;
+    color: var(--branco);
+    text-transform: uppercase;
+    font-family: var(--fonte);
+    font-size: var(--titulo);
+    letter-spacing: 2.5px;
+    background: var(--purpura);
+    border-radius: var(--bradius7);
+}
+header:hover{
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+div#mensagem{
+    position: fixed;
+    z-index: 1;
+    top: 5px;
+    width: 97%;
+    padding: 15px 0;
+    font-family: MuseoSans;
+    color: var(--branco);
+    background: #ffc36b;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: var(--bradius4);
+    display: none;
+}
+div#mensagem.red{
+    background: #F90055;
+}
+
+.formularioCadastro {
+    background-color: rgba(0, 0, 0, 0.199);
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    padding: 35px;
+    margin: 0 auto;
+    position: relative;
+    box-sizing: border-box;
+    font-size: var(--titulo);
+    margin-top: -40px;
+    border-radius: var(--bradius7);
+}
+.formularioCadastro input { 
+    background-color: rgba(0, 0, 0, 0.315);
+    color: var(--branco);
+    width: var(--winput);
+    height: var(--hinput);
+    margin-bottom:1rem;
+    border-radius: var(--bradius4);
+    outline: solid rgba(0, 0, 0, 0.315) 2px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: var(--texto);
+} 
+
+.formularioCadastro input:focus { 
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+.formularioCadastro input:hover { 
+  box-shadow: 0 0.5rem 1rem var(--sombraColor);
+}
+
+/*.formularioCadastro input[type=submit] { */
+.formularioCadastro button { 
+    background-color: var(--verde);
+    color: var(--branco);
+    width: var(--winput);
+    height: var(--hinput);
+    margin-bottom:1rem;
+    border-radius: var(--bradius4);
+    cursor: pointer;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+.formularioCadastro button:hover { 
+    background-color: var(--verde-over);
+    font-weight: bold;
+}
+.form-group{
+    margin-top: 0.7rem;
+    margin-bottom:1.7rem;
+}
